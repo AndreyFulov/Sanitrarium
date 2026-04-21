@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[DefaultExecutionOrder(20)]
 public class UI_InventoryGrid : MonoBehaviour
 {
     [Header("Настройки сетки")]
@@ -22,6 +23,7 @@ public class UI_InventoryGrid : MonoBehaviour
                 slot.slotIndex = i;
             }
         }
+        Debug.Log("Инвентарь инициализирован!");
     }
 
     private void Start()
