@@ -6,11 +6,10 @@ public class MadnessUI : MonoBehaviour
     private Image madnessCircle;
     private float _currentFill = 0f;
     private float _targetFill = 0f;
-    private float transitionTime = 0f;
-    public void ChangeMindUI(InfoUI info)
+    public float transitionTime = 0f;
+    public void ChangeMindUI()
     {
-        _targetFill = Mathf.Clamp(MadnessManager.instance.madness, info.minMadness,info.maxMadness) / 100f;
-        transitionTime = info.transition;
+        _targetFill = Mathf.Clamp(MadnessManager.Instance.currentSanity, MadnessManager.Instance.minSanity,MadnessManager.Instance.maxSanity) / 100f;
     }
     void Update()
     {

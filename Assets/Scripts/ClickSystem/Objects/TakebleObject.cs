@@ -13,14 +13,4 @@ public class TakebleObject : ClickableObject
         Inventory.Instance.AddItem(itemInfo);
         base.OnClick();
     }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
