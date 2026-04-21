@@ -12,7 +12,7 @@ public abstract class ClickableObject : MonoBehaviour
     {
         Color baseColor = this.gameObject.GetComponent<SpriteRenderer>().color;
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.3f);
         this.gameObject.GetComponent<SpriteRenderer>().color = baseColor;
     }
 }
