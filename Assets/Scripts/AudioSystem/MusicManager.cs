@@ -45,6 +45,14 @@ public class MusicManager : MonoBehaviour
     [Tooltip("Время плавного перехода между треками (секунды)")]
     [Range(0.1f, 3f)]
     public float crossfadeDuration = 1f;
+	
+	[Header("Настройки сцен")]
+	[Tooltip("Сохранять текущий трек при загрузке новой сцены")]
+	public bool preserveTrackOnLoad = false;
+
+	[Tooltip("Глобальное затухание при смене сцены (секунды)")]
+	[Range(0f, 3f)]
+	public float sceneTransitionFade = 0.5f;
     #endregion
     
     #region Private Fields
@@ -340,11 +348,69 @@ public class MusicManager : MonoBehaviour
         Debug.Log($"[MusicManager] Воспроизводится трек: {track.trackName} (Sanity: {CurrentSanity:F0})");
     }
     #endregion
+	
+	#region SceneLoad
+	/// <summary>
+	/// Загрузить сцену с плавным переходом музыки
+	/// </summary>
+	public IEnumerator LoadSceneWithMusic(string sceneName, float fadeDuration = 1f)
+	{
+		// Затухание
+		yield return StartCoroutine(FadeOut(fadeDuration / 2f));
+		
+		// Загрузка сцены
+		AsyncOperation loadOp = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
+		
+		while (!loadOp.isDone)
+		{
+			yield return null;
+		}
+		
+		// Музыка уже переключится через SceneMusicController
+		yield return new WaitForSeconds(0.5f);
+		
+		// Появление
+		yield return StartCoroutine(FadeIn(fadeDuration / 2f));
+	}
+
+	// Методы затухания
+	private IEnumerator FadeOut(float duration)
+	{
+		float startVolume = masterVolume;
+		float elapsed = 0f;
+		
+		while (elapsed < duration)
+		{
+			elapsed += Time.deltaTime;
+			float t = elapsed / duration;
+			SetVolume(Mathf.Lerp(startVolume, 0f, t));
+			yield return null;
+		}
+		
+		SetVolume(0f);
+	}
+
+	private IEnumerator FadeIn(float duration)
+	{
+		float targetVolume = 0.7f; // Или сохранить предыдущее значение
+		float elapsed = 0f;
+		
+		while (elapsed < duration)
+		{
+			elapsed += Time.deltaTime;
+			float t = elapsed / duration;
+			SetVolume(Mathf.Lerp(0f, targetVolume, t));
+			yield return null;
+		}
+		
+		SetVolume(targetVolume);
+	}
+	#endregion
     
     #region Debug
     private void OnGUI()
     {
-        GUILayout.BeginArea(new Rect(270, 10, 250, 150));
+        GUILayout.BeginArea(new Rect(270, 10, 250, 160));
         GUILayout.Box("Music Manager (DEBUG)");
         
         GUILayout.Label($"Текущий трек: {currentTrack?.trackName ?? "Нет"}");
