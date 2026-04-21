@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59ee19117d8b7a14f86d502d71052225, type: 3}
-  m_Name: MusicTrack1
+  m_Name: MusicTrack3
   m_EditorClassIdentifier: Assembly-CSharp::MusicTrackData
-  trackName: New Track
-  audioClip: {fileID: 0}
+  trackName: Snoring
+  audioClip: {fileID: 8300000, guid: bc1377b2a90c651408a731e02510becc, type: 3}
   minSanityThreshold: 0
   maxSanityThreshold: 100
   priority: 5

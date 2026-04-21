@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59ee19117d8b7a14f86d502d71052225, type: 3}
-  m_Name: MusicTrack3
+  m_Name: MusicTrack1
   m_EditorClassIdentifier: Assembly-CSharp::MusicTrackData
-  trackName: New Track
-  audioClip: {fileID: 0}
-  minSanityThreshold: 0
+  trackName: Resonance
+  audioClip: {fileID: 8300000, guid: 0946c4f14b6c47349addc3183d478302, type: 3}
+  minSanityThreshold: 50
   maxSanityThreshold: 100
   priority: 5
   volume: 1

@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4cc63c32c9f67d44ae7ef76eceb042f, type: 3}
-  m_Name: MusicPlaylist
+  m_Name: ScenePlaylist
   m_EditorClassIdentifier: Assembly-CSharp::MusicPlaylistData
-  playlistName: New Playlist
+  playlistName: Scene 1 Playlist
   description: 
   tracks:
   - {fileID: 11400000, guid: 1ee989d53d0d8ac42b70817e5e573ecb, type: 2}
   - {fileID: 11400000, guid: c5ad83536ab734641bf5226d332fd1bc, type: 2}
-  - {fileID: 11400000, guid: 0d02ccc560934904b8dc20da24f598a5, type: 2}
   autoSwitchBySanity: 1
   switchCooldown: 0.5
   shuffle: 0

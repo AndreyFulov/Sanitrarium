@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59ee19117d8b7a14f86d502d71052225, type: 3}
   m_Name: MusicTrack2
   m_EditorClassIdentifier: Assembly-CSharp::MusicTrackData
-  trackName: New Track
-  audioClip: {fileID: 0}
+  trackName: Memory Reboot
+  audioClip: {fileID: 8300000, guid: 554ad5c859661374e87ca06451fd2124, type: 3}
   minSanityThreshold: 0
-  maxSanityThreshold: 100
+  maxSanityThreshold: 49
   priority: 5
   volume: 1
   loop: 1
