@@ -5,10 +5,12 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
+[DefaultExecutionOrder(-50)]
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private GameObject ui;
+    public NoItemNotification noItem;
     public static Inventory Instance { get; private set; }
 
     public void SwitchInventoryPanel()
@@ -82,24 +84,52 @@ public class Inventory : MonoBehaviour
     }
 
     // 🔴 PUBLIC API: Забрать/удалить предмет по слоту
-    public bool RemoveItem(int slotIndex, int amount = 1)
-    {
-        if (!IsValidSlot(slotIndex) || _slots[slotIndex].IsEmpty) return false;
+public bool RemoveItemById(int slotIndex, int amount = 1)
+{
+    if (!IsValidSlot(slotIndex) || _slots[slotIndex].IsEmpty) return false;
 
-        _slots[slotIndex].quantity -= amount;
-        if (_slots[slotIndex].quantity <= 0)
-        {
-            var removedItem = _slots[slotIndex].item;
-            _slots[slotIndex] = new SlotData();
-            OnSlotChanged?.Invoke(slotIndex, _slots[slotIndex]);
-            OnItemRemoved?.Invoke(removedItem.itemId);
-        }
-        else
-        {
-            OnSlotChanged?.Invoke(slotIndex, _slots[slotIndex]);
-        }
-        return true;
+    _slots[slotIndex].quantity -= amount;
+    if (_slots[slotIndex].quantity <= 0)
+    {
+        var removedItem = _slots[slotIndex].item;
+        _slots[slotIndex] = new SlotData();
+        OnSlotChanged?.Invoke(slotIndex, _slots[slotIndex]);
+        OnItemRemoved?.Invoke(removedItem.itemId);
     }
+    else
+    {
+        OnSlotChanged?.Invoke(slotIndex, _slots[slotIndex]);
+    }
+    return true;
+}
+
+public event Action<string> InventoryMessage;
+
+public bool RemoveItemByInfo(ItemSO item, int amount = 1)
+{
+    int slotIndex = GetSlotByItemInfo(item); // Ищем индекс
+    if (slotIndex == -1)
+    {
+        InventoryMessage?.Invoke("Нет необходимого предмета!");
+        return false;
+    }
+    return RemoveItemById(slotIndex, amount); // Удаляем по найденному индексу
+}
+
+// 🟢 ИСПРАВЛЕННАЯ ВЕРСИЯ: Только поиск, БЕЗ побочных эффектов!
+public int GetSlotByItemInfo(ItemSO item)
+{
+    if (item == null) return -1;
+    for (int i = 0; i < _slots.Length; i++)
+    {
+        // ❗️ Убрано RemoveItemById(i) — метод только возвращает индекс
+        if (!_slots[i].IsEmpty && _slots[i].item == item)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
 
     // 🔍 PUBLIC API: Получить данные слота
     public SlotData GetSlot(int index) => IsValidSlot(index) ? _slots[index] : throw new IndexOutOfRangeException();

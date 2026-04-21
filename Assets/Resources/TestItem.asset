@@ -15,5 +15,5 @@ MonoBehaviour:
   itemId: 
   displayName: 
   icon: {fileID: 0}
-  isDroppable: 1
+  isDroppable: 0
   gridSize: {x: 1, y: 1}

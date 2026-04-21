@@ -49,7 +49,7 @@ public class ContextMenuManager : MonoBehaviour
 
     private void DropItem()
     {
-        Inventory.Instance.RemoveItem(_currentSlotIndex);
+        Inventory.Instance.RemoveItemById(_currentSlotIndex);
         // Здесь спавните предмет в сцене: WorldItem.Spawn(...);
         Debug.Log($"[ContextMenu] Выбросить из слота {_currentSlotIndex}");
         Hide();

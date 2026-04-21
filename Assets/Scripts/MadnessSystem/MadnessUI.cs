@@ -7,7 +7,15 @@ public class MadnessUI : MonoBehaviour
     private float _currentFill = 0f;
     private float _targetFill = 0f;
     public float transitionTime = 0f;
-    public void ChangeMindUI()
+    void OnDisable()
+    {
+        MadnessManager.Instance.OnSanityChanged -= ChangeMindUI;
+    }
+    void OnEnable()
+    {
+        MadnessManager.Instance.OnSanityChanged += ChangeMindUI;
+    }
+    public void ChangeMindUI(float value)
     {
         _targetFill = Mathf.Clamp(MadnessManager.Instance.currentSanity, MadnessManager.Instance.minSanity,MadnessManager.Instance.maxSanity) / 100f;
     }
@@ -24,5 +32,6 @@ public class MadnessUI : MonoBehaviour
     void Start()
     {
         madnessCircle = GetComponent<Image>();
+        ChangeMindUI(0);
     }
 }
