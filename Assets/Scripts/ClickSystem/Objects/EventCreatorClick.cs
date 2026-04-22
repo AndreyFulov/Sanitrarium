@@ -5,9 +5,10 @@ using UnityEngine.Events;
 public class EventCreatorClick : ClickableObject
 {
     public UnityEvent _event;
-    public override void OnClick()
+    public override bool OnClick()
     {
+        if(!base.OnClick()) return false;
         _event.Invoke();
-        base.OnClick();
+        return true;
     }
 }
